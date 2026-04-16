@@ -1,0 +1,32 @@
+models:
+  - model_id: openai_gpt4_turbo
+    provider: openai
+    model_name: gpt-4-turbo-preview
+    model_family: gpt-4
+    active_flag: true
+    pricing_input_per_1k: 0.01
+    pricing_output_per_1k: 0.03
+
+  - model_id: openai_gpt35_turbo
+    provider: openai
+    model_name: gpt-3.5-turbo
+    model_family: gpt-3.5
+    active_flag: true
+    pricing_input_per_1k: 0.0005
+    pricing_output_per_1k: 0.0015
+
+  - model_id: anthropic_claude3_opus
+    provider: anthropic
+    model_name: claude-3-opus-20240229
+    model_family: claude-3
+    active_flag: true
+    pricing_input_per_1k: 0.015
+    pricing_output_per_1k: 0.075
+
+  - model_id: anthropic_claude3_sonnet
+    provider: anthropic
+    model_name: claude-3-sonnet-20240229
+    model_family: claude-3
+    active_flag: true
+    pricing_input_per_1k: 0.003
+    pricing_output_per_1k: 0.015

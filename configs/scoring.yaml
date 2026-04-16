@@ -1,0 +1,32 @@
+scoring:
+  weights:
+    quality: 1.0
+    cost: 0.5
+    latency: 0.3
+    tokens: 0.2
+
+  task_types:
+    - name: customer_support
+      description: Customer support Q&A responses
+      priority_metrics:
+        - quality
+        - latency
+
+    - name: summarization
+      description: Document summarization tasks
+      priority_metrics:
+        - cost
+        - quality
+
+    - name: extraction
+      description: Information extraction tasks
+      priority_metrics:
+        - quality
+        - tokens
+
+    - name: general
+      description: General purpose tasks
+      priority_metrics:
+        - quality
+        - cost
+        - latency

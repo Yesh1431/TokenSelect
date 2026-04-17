@@ -21,6 +21,8 @@ pip install -r requirements.txt
 
 > **Python version note:** Python **3.11+** is supported, but Windows installs require prebuilt wheels for heavy dependencies.  
 > If you see `Preparing metadata (pyproject.toml) ... error` for `pandas`, switch to Python **3.13** and reinstall (this avoids source builds on unsupported combinations).
+> **Python version note:** use Python **3.11–3.13**.  
+> If you use Python 3.14+, some pinned scientific packages may not have compatible wheels yet and can fail during native compilation on Windows.
 
 ### Virtual environment activation
 

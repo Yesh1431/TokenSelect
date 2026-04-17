@@ -15,12 +15,32 @@ A plug-and-play platform that helps companies benchmark LLMs, compare quality vs
 ### Installation
 
 ```bash
+git pull
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
 > **Python version note:** Python **3.11+** is supported, and dependencies are split by Python version in `requirements.txt`.  
 > If pip still shows `Collecting pandas==2.1.4`, you are on an older checkout—run `git pull` and reinstall.
+
+### Windows + Python 3.14 troubleshooting
+
+If you still see this during install:
+
+`Preparing metadata (pyproject.toml) ... error` for `pandas 2.1.4`
+
+you are installing from a stale `requirements.txt`. Verify your file has:
+
+- `pandas>=2.3.0,<3; python_version >= "3.14"`
+- `psycopg2-binary>=2.9.11,<3; python_version >= "3.14"`
+
+Then reinstall with a clean cache:
+
+```powershell
+python -m pip install --upgrade pip
+pip cache purge
+pip install --no-cache-dir -r requirements.txt
+```
 > **Python version note:** Python **3.11+** is supported, but Windows installs require prebuilt wheels for heavy dependencies.  
 > If you see `Preparing metadata (pyproject.toml) ... error` for `pandas`, switch to Python **3.13** and reinstall (this avoids source builds on unsupported combinations).
 > **Python version note:** use Python **3.11–3.13**.  

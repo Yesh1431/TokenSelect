@@ -19,6 +19,8 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
+> **Python version note:** Python **3.11+** is supported, and dependencies are split by Python version in `requirements.txt`.  
+> If pip still shows `Collecting pandas==2.1.4`, you are on an older checkout—run `git pull` and reinstall.
 > **Python version note:** Python **3.11+** is supported, but Windows installs require prebuilt wheels for heavy dependencies.  
 > If you see `Preparing metadata (pyproject.toml) ... error` for `pandas`, switch to Python **3.13** and reinstall (this avoids source builds on unsupported combinations).
 > **Python version note:** use Python **3.11–3.13**.  

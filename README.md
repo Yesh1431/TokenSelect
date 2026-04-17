@@ -15,8 +15,27 @@ A plug-and-play platform that helps companies benchmark LLMs, compare quality vs
 ### Installation
 
 ```bash
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
+
+> **Python version note:** Python **3.11+** is supported, but Windows installs require prebuilt wheels for heavy dependencies.  
+> If you see `Preparing metadata (pyproject.toml) ... error` for `pandas`, switch to Python **3.13** and reinstall (this avoids source builds on unsupported combinations).
+
+### Virtual environment activation
+
+- **PowerShell (Windows)**
+  ```powershell
+  .venv\Scripts\Activate.ps1
+  ```
+- **Command Prompt (Windows)**
+  ```cmd
+  .venv\Scripts\activate.bat
+  ```
+- **bash/zsh (Linux/macOS/Git Bash)**
+  ```bash
+  source .venv/bin/activate
+  ```
 
 ### Configuration
 

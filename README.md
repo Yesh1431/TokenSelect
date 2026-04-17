@@ -15,8 +15,27 @@ A plug-and-play platform that helps companies benchmark LLMs, compare quality vs
 ### Installation
 
 ```bash
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
+
+> **Python version note:** Python **3.11+** is supported, and dependencies are split by Python version in `requirements.txt`.  
+> If pip still shows `Collecting pandas==2.1.4`, you are on an older checkout—run `git pull` and reinstall.
+
+### Virtual environment activation
+
+- **PowerShell (Windows)**
+  ```powershell
+  .venv\Scripts\Activate.ps1
+  ```
+- **Command Prompt (Windows)**
+  ```cmd
+  .venv\Scripts\activate.bat
+  ```
+- **bash/zsh (Linux/macOS/Git Bash)**
+  ```bash
+  source .venv/bin/activate
+  ```
 
 ### Configuration
 

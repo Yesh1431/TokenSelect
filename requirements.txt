@@ -1,10 +1,14 @@
+--only-binary=pandas,psycopg2-binary
+
 fastapi==0.109.0
 uvicorn==0.27.0
 pydantic==2.5.3
 pydantic-settings==2.1.0
 sqlalchemy==2.0.25
-psycopg2-binary==2.9.9
-pandas==2.1.4
+psycopg2-binary==2.9.11; python_version < "3.14"
+psycopg2-binary>=2.9.11,<3; python_version >= "3.14"
+pandas==2.2.3; python_version < "3.14"
+pandas>=2.3.0,<3; python_version >= "3.14"
 openai==1.10.0
 anthropic==0.18.0
 google-generativeai==0.3.2

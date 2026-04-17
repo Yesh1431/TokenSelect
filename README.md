@@ -15,8 +15,27 @@ A plug-and-play platform that helps companies benchmark LLMs, compare quality vs
 ### Installation
 
 ```bash
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
+
+> **Python version note:** use Python **3.11–3.13**.  
+> If you use Python 3.14+, some pinned scientific packages may not have compatible wheels yet and can fail during native compilation on Windows.
+
+### Virtual environment activation
+
+- **PowerShell (Windows)**
+  ```powershell
+  .venv\Scripts\Activate.ps1
+  ```
+- **Command Prompt (Windows)**
+  ```cmd
+  .venv\Scripts\activate.bat
+  ```
+- **bash/zsh (Linux/macOS/Git Bash)**
+  ```bash
+  source .venv/bin/activate
+  ```
 
 ### Configuration
 

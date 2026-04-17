@@ -1,8 +1,12 @@
+--only-binary=pandas,psycopg2-binary
+
 fastapi==0.109.0
 uvicorn==0.27.0
 pydantic==2.5.3
 pydantic-settings==2.1.0
 sqlalchemy==2.0.25
+psycopg2-binary>=2.9.11,<3
+pandas>=2.3.0,<3
 psycopg2-binary>=2.9.10,<3
 pandas>=2.2.3,<3
 openai==1.10.0

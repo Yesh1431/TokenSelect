@@ -13,12 +13,18 @@ class AnthropicConnector(BaseConnector):
     def provider_name(self) -> str:
         return 'anthropic'
 
-    def __init__(self, api_key: Optional[str] = None):
+    def __init__(self, api_key: Optional[str] = None, base_url: Optional[str] = None):
         import os
         self.api_key = api_key or os.getenv('ANTHROPIC_API_KEY')
         if not self.api_key:
             raise ValueError("Anthropic API key is required")
-        self.client = anthropic.AsyncAnthropic(api_key=self.api_key)
+
+        resolved_base_url = base_url or os.getenv('ANTHROPIC_BASE_URL')
+        client_kwargs: Dict[str, Any] = {'api_key': self.api_key}
+        if resolved_base_url:
+            client_kwargs['base_url'] = resolved_base_url
+
+        self.client = anthropic.AsyncAnthropic(**client_kwargs)
 
     async def generate(
         self,

@@ -64,10 +64,14 @@ pip install --no-cache-dir -r requirements.txt
 ### Configuration
 
 1. Copy `.env.example` to `.env`
-2. Set your API keys:
+2. Set your API keys (and optional custom endpoints):
    ```
    OPENAI_API_KEY=your_key_here
    ANTHROPIC_API_KEY=your_key_here
+
+   # Optional: use gateway/proxy-compatible endpoints instead of provider defaults
+   OPENAI_BASE_URL=https://your-openai-compatible-endpoint/v1
+   ANTHROPIC_BASE_URL=https://your-anthropic-compatible-endpoint
    ```
 
 ### Run API Server

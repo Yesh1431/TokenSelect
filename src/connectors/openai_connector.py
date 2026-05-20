@@ -13,12 +13,18 @@ class OpenAIConnector(BaseConnector):
     def provider_name(self) -> str:
         return 'openai'
 
-    def __init__(self, api_key: Optional[str] = None):
+    def __init__(self, api_key: Optional[str] = None, base_url: Optional[str] = None):
         import os
         self.api_key = api_key or os.getenv('OPENAI_API_KEY')
         if not self.api_key:
             raise ValueError("OpenAI API key is required")
-        self.client = openai.AsyncOpenAI(api_key=self.api_key)
+
+        resolved_base_url = base_url or os.getenv('OPENAI_BASE_URL')
+        client_kwargs: Dict[str, Any] = {'api_key': self.api_key}
+        if resolved_base_url:
+            client_kwargs['base_url'] = resolved_base_url
+
+        self.client = openai.AsyncOpenAI(**client_kwargs)
 
     async def generate(
         self,

@@ -22,6 +22,16 @@ class ModelConfig(BaseModel):
     model_id: str
     provider: str
     model_name: str
+    endpoint_url: Optional[str] = None
+    http_method: str = 'POST'
+    auth_type: str = 'api_key'
+    request_format: str = 'openai_compatible'
+    response_text_path: str = 'choices.0.message.content'
+    usage_input_path: str = 'usage.prompt_tokens'
+    usage_output_path: str = 'usage.completion_tokens'
+    context_window: Optional[int] = None
+    timeout_seconds: int = 60
+    retry_count: int = 2
     pricing_input_per_1k: float = 0
     pricing_output_per_1k: float = 0
 
@@ -166,6 +176,9 @@ async def list_models():
                     'provider': m.provider,
                     'model_name': m.model_name,
                     'active': m.active_flag,
+                    'endpoint_url': m.endpoint_url,
+                    'request_format': m.request_format,
+                    'context_window': m.context_window,
                 }
                 for m in models
             ]
@@ -184,6 +197,16 @@ async def register_model(model: ModelConfig):
             model_id=model.model_id,
             provider=model.provider,
             model_name=model.model_name,
+            endpoint_url=model.endpoint_url,
+            http_method=model.http_method,
+            auth_type=model.auth_type,
+            request_format=model.request_format,
+            response_text_path=model.response_text_path,
+            usage_input_path=model.usage_input_path,
+            usage_output_path=model.usage_output_path,
+            context_window=model.context_window,
+            timeout_seconds=model.timeout_seconds,
+            retry_count=model.retry_count,
             pricing_input_per_1k=model.pricing_input_per_1k,
             pricing_output_per_1k=model.pricing_output_per_1k,
         )

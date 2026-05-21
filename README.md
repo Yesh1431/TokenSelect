@@ -25,26 +25,21 @@ pip install -r requirements.txt
 
 ### Windows + Python 3.14 troubleshooting
 
-If you still see this during install:
+If installation fails on Windows with Python **3.14** (commonly when building `tiktoken`, `pydantic-core`, or `pillow` from source), use Python **3.11** (recommended) or **3.12** for this project.
 
-`Preparing metadata (pyproject.toml) ... error` for `pandas 2.1.4`
-
-you are installing from a stale `requirements.txt`. Verify your file has:
-
-- `pandas>=2.3.0,<3; python_version >= "3.14"`
-- `psycopg2-binary>=2.9.11,<3; python_version >= "3.14"`
-
-Then reinstall with a clean cache:
+In PowerShell:
 
 ```powershell
-python -m pip install --upgrade pip
-pip cache purge
-pip install --no-cache-dir -r requirements.txt
+py -0
+py -3.11 -m venv venv
+.\venv\Scripts\activate
+python -m pip install --upgrade pip setuptools wheel
+pip install -r requirements.txt
 ```
-> **Python version note:** Python **3.11+** is supported, but Windows installs require prebuilt wheels for heavy dependencies.  
-> If you see `Preparing metadata (pyproject.toml) ... error` for `pandas`, switch to Python **3.13** and reinstall (this avoids source builds on unsupported combinations).
-> **Python version note:** use Python **3.11–3.13**.  
-> If you use Python 3.14+, some pinned scientific packages may not have compatible wheels yet and can fail during native compilation on Windows.
+
+If Python 3.11 is not installed, install it from python.org and re-run the same commands.
+
+> **Recommendation:** use Python **3.11** for the most reliable wheels across FastAPI, Streamlit, `tiktoken`, `pydantic-core`, and `pillow`.
 
 ### Virtual environment activation
 

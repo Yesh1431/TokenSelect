@@ -41,7 +41,7 @@ def load_models():
 st.sidebar.header("Navigation")
 page = st.sidebar.selectbox(
     "Select Page",
-    ["Overview", "Benchmark Results", "Model Comparison", "Registered Models"]
+    ["Overview", "Benchmark Results", "Model Comparison", "Registered Models", "Add Model Endpoint"]
 )
 
 # Load data
@@ -188,3 +188,48 @@ elif page == "Registered Models":
         st.dataframe(pricing_df, use_container_width=True)
     else:
         st.info("No models registered yet.")
+
+
+# Add Model Endpoint Page
+elif page == "Add Model Endpoint":
+    st.header("Add Model Endpoint")
+
+    with st.form("add_model_endpoint"):
+        col1, col2 = st.columns(2)
+        with col1:
+            provider = st.text_input("Provider Name", placeholder="Kimi / OpenAI-Compatible / Internal")
+            model_name = st.text_input("Model Display Name", placeholder="kimi-k2")
+            model_id = st.text_input("Model ID", placeholder="provider:model")
+            endpoint_url = st.text_input("Endpoint URL", placeholder="https://api.example.com/v1/chat/completions")
+            auth_type = st.selectbox("Auth Type", ["api_key", "bearer", "basic", "none"])
+            request_format = st.selectbox("Request Format", ["openai_compatible", "anthropic_compatible", "custom_json"])
+        with col2:
+            http_method = st.selectbox("HTTP Method", ["POST", "GET"])
+            context_window = st.number_input("Context Window", min_value=0, step=1024, value=0)
+            timeout_seconds = st.number_input("Timeout (seconds)", min_value=1, value=60)
+            retry_count = st.number_input("Retry Count", min_value=0, value=2)
+            pricing_input_per_1k = st.number_input("Input Price ($ / 1K tokens)", min_value=0.0, value=0.0, format="%.6f")
+            pricing_output_per_1k = st.number_input("Output Price ($ / 1K tokens)", min_value=0.0, value=0.0, format="%.6f")
+
+        submitted = st.form_submit_button("Register Model Endpoint")
+
+    if submitted:
+        if not provider or not model_name or not model_id:
+            st.error("Provider, Model Name, and Model ID are required.")
+        else:
+            engine = get_db_engine()
+            with engine.begin() as conn:
+                conn.exec_driver_sql(
+                    """
+                    INSERT INTO models (
+                        model_id, provider, model_name, endpoint_url, http_method, auth_type, request_format,
+                        context_window, timeout_seconds, retry_count, pricing_input_per_1k, pricing_output_per_1k, active_flag
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
+                    """,
+                    (
+                        model_id, provider, model_name, endpoint_url or None, http_method, auth_type, request_format,
+                        int(context_window) if context_window else None, int(timeout_seconds), int(retry_count),
+                        float(pricing_input_per_1k), float(pricing_output_per_1k),
+                    ),
+                )
+            st.success(f"Registered model endpoint: {model_id}")
